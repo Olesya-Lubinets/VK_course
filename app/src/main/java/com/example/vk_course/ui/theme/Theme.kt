@@ -52,7 +52,8 @@ fun VK_courseTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = AppTypography,
         content = content
     )
+
 }
