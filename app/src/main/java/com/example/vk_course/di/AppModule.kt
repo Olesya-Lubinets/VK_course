@@ -2,6 +2,8 @@ package com.example.vk_course.di
 
 import android.content.Context
 import androidx.room.Room
+import coil.ImageLoader
+import coil.decode.SvgDecoder
 import com.example.vk_course.data.AppDatabase
 import com.example.vk_course.data.ApplicationDao
 import dagger.Module
@@ -20,7 +22,7 @@ object AppModule {
     fun provideDatabase(
         @ApplicationContext context: Context
     ): AppDatabase {
-        return  return Room.databaseBuilder( context,
+        return Room.databaseBuilder( context,
            AppDatabase::class.java,
             "applications_database")
             .build()
@@ -31,5 +33,17 @@ object AppModule {
     fun provideApplicationDao(
         database: AppDatabase
     ): ApplicationDao = database.applicationDao()
+
+    @Provides
+    @Singleton
+    fun provideImageLoader(
+        @ApplicationContext context: Context
+    ): ImageLoader {
+        return ImageLoader.Builder(context)
+            .components {
+                add(SvgDecoder.Factory())
+            }
+            .build()
+    }
 
 }
