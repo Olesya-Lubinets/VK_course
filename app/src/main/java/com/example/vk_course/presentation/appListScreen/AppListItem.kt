@@ -1,5 +1,6 @@
-package com.example.vk_course.components
+package com.example.vk_course.presentation.appListScreen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,31 +13,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import coil.ImageLoader
 import coil.compose.AsyncImage
-import com.example.vk_course.domain.VKApplication
+import com.example.vk_course.R
+import com.example.vk_course.domain.model.VKApplication
+import com.example.vk_course.domain.model.getCategoryFromResources
 
 @Composable
-fun AppElement(app: VKApplication, imageLoader: ImageLoader) {
+fun AppListItem(app: VKApplication, onClick:()->Unit ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable { onClick() },
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
+
     ) {
         AsyncImage(
-            model = app.icon,
+            model = app.iconUrl,
             modifier = Modifier.size(40.dp),
             contentScale = ContentScale.Crop,
-            contentDescription = app.title,
-            imageLoader = imageLoader
+            contentDescription = app.name,
         )
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(text = app.title, style = MaterialTheme.typography.titleMedium)
+            Text(text = app.name, style = MaterialTheme.typography.titleMedium)
             Text(text = app.description, style = MaterialTheme.typography.bodyMedium)
-            Text(text = "Категория: ${app.category}", style = MaterialTheme.typography.labelSmall)
+            Text(text = stringResource(R.string.category,stringResource(app.category.getCategoryFromResources())), style = MaterialTheme.typography.labelSmall)
         }
     }
 }
