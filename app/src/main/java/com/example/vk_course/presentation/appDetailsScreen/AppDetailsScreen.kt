@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -16,7 +17,9 @@ import com.example.vk_course.presentation.AppDetailsState
 fun AppDetailsScreen(id: Int, onAppClick: (Int)-> Unit) {
 
     val viewModel: ApplicationViewModel = hiltViewModel()
-    viewModel.getById(id)
+    LaunchedEffect(id) {
+        viewModel.getById(id)
+    }
     val appState by viewModel.appByID.collectAsStateWithLifecycle()
     Column() {
         when (appState) {

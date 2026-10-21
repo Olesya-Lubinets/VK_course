@@ -34,11 +34,7 @@ fun ShowCase(onAppClick: (Int) -> Unit) {
                         text = stringResource(R.string.show_case),
                         style = MaterialTheme.typography.titleMedium
                     )
-                    if (appList.isEmpty()) {
-                        Text("No applications yet")
-                    } else {
                         AppsPager(appList, onAppClick)
-                    }
                 }
             }
         }

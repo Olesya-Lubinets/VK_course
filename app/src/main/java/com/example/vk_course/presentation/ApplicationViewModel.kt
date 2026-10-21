@@ -27,10 +27,10 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
     }
 
     val listOfApplications: StateFlow<AppListState> =
-        repository.getAllApplications().map { applications ->
+        repository.getAllApplications().map<List<VKApplication>,AppListState> { applications ->
             AppListState.Success(applications)
         }
-            .catch { AppListState.Error }
+            .catch  { emit(AppListState.Error) }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
@@ -46,6 +46,7 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
             try {
                 val app = repository.getVKApplicationByID(id)
                 if (app != null) _appByID.value = AppDetailsState.Success(app)
+                else  AppDetailsState.Error
             } catch (e: Exception) {
                 _appByID.value = AppDetailsState.Error
             }
