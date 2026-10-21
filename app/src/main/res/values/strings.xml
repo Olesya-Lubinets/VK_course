@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">VK_course</string>
+    <string name="category_lifestyle">Лайфстайл</string>
+    <string name="category_social">Социальные сети</string>
+    <string name="category_productivity">Продуктивность</string>
+    <string name="category_media">Медиа</string>
+    <string name="category_game">Игры</string>
+    <string name="category_finance">Финансы</string>
+    <string name="show_case">Витрина</string>
+    <string name="no_applications_found">Список приложений пустой</string>
+    <string name="error_while_fetching_data">Ошибка при загрузке данных</string>
+    <string name="category">Категория: %1$s</string>
+    <string name="wrong_id">Wrong ID</string>
+    <string name="description">Описание</string>
+    <string name="Screenshots">Скриншоты</string>
+    <string name="screenshot">Скриншот %1$s</string>
+    <string name="Install">Установить</string>
+    <string name="age">Возраст: %1$s+</string>
 </resources>

@@ -2,10 +2,8 @@ package com.example.vk_course.di
 
 import android.content.Context
 import androidx.room.Room
-import coil.ImageLoader
-import coil.decode.SvgDecoder
-import com.example.vk_course.data.AppDatabase
-import com.example.vk_course.data.ApplicationDao
+import com.example.vk_course.data.local.AppDatabase
+import com.example.vk_course.data.local.ApplicationDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +23,7 @@ object AppModule {
         return Room.databaseBuilder( context,
            AppDatabase::class.java,
             "applications_database")
+            .fallbackToDestructiveMigration()
             .build()
     }
 
@@ -33,17 +32,5 @@ object AppModule {
     fun provideApplicationDao(
         database: AppDatabase
     ): ApplicationDao = database.applicationDao()
-
-    @Provides
-    @Singleton
-    fun provideImageLoader(
-        @ApplicationContext context: Context
-    ): ImageLoader {
-        return ImageLoader.Builder(context)
-            .components {
-                add(SvgDecoder.Factory())
-            }
-            .build()
-    }
 
 }
