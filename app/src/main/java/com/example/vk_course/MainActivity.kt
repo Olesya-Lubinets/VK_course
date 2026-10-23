@@ -10,6 +10,7 @@ import com.example.vk_course.presentation.ApplicationViewModel
 import com.example.vk_course.presentation.theme.VK_courseTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
