@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.vk_course.domain.model.VKApplication
+import com.example.vk_course.domain.model.Application
 
 @Composable
-fun AppShowCaseItem(app: VKApplication, onClick: (Int) -> Unit) {
+fun AppShowCaseItem(app: Application, onClick: (Int) -> Unit) {
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,

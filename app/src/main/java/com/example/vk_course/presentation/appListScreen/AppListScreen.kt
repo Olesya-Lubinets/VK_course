@@ -65,7 +65,7 @@ fun AppListScreen(
                 }
 
                 is AppListState.Success -> {
-                    val appList = (state as AppListState.Success).vkApplicationList
+                    val appList = (state as AppListState.Success).applicationList
                     if (appList.isEmpty()) {
                         Text(stringResource(R.string.no_applications_found))
                     } else {

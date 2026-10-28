@@ -1,11 +1,11 @@
 package com.example.vk_course.data
 
+import com.example.vk_course.data.local.ApplicationDTO
 import com.example.vk_course.domain.model.Category
-import com.example.vk_course.domain.model.VKApplication
 
 object MockData {
     val mockApplications = listOf(
-        VKApplication(
+        ApplicationDTO(
             iconUrl = "https://images.weserv.nl/?url=cdn.simpleicons.org%2Fspotify%2F1DB954&output=png",
             name = "Spotify",
             description = "Музыкальный сервис для прослушивания песен, альбомов и подкастов.",
@@ -18,7 +18,7 @@ object MockData {
             ),
             size = 85.5f
         ),
-        VKApplication(
+        ApplicationDTO(
             iconUrl = "https://images.weserv.nl/?url=cdn.simpleicons.org%2Ftelegram%2F26A5E4&output=png",
             name = "Telegram",
             description = "Мессенджер для общения, групповых чатов, каналов и обмена файлами.",
@@ -31,7 +31,7 @@ object MockData {
             ),
             size = 42.3f
         ),
-        VKApplication(
+        ApplicationDTO(
             iconUrl = "https://images.weserv.nl/?url=cdn.simpleicons.org%2Finstagram%2FE4405F&output=png",
             name = "Instagram",
             description = "Социальная сеть для публикации фотографий, видео и историй.",
@@ -44,7 +44,7 @@ object MockData {
             ),
             size = 120.0f
         ),
-        VKApplication(
+        ApplicationDTO(
             iconUrl = "https://images.weserv.nl/?url=cdn.simpleicons.org%2Fnotion%2F000000&output=png",
             name = "Notion",
             description = "Рабочее пространство для заметок, документов, задач и управления проектами.",
@@ -57,7 +57,7 @@ object MockData {
             ),
             size = 65.2f
         ),
-        VKApplication(
+        ApplicationDTO(
             iconUrl = "https://images.weserv.nl/?url=cdn.simpleicons.org%2Fyoutube%2FFFF000&output=png",
             name = "YouTube",
             description = "Видеоплатформа с развлекательным контентом, обучающими роликами и трансляциями.",
@@ -70,7 +70,7 @@ object MockData {
             ),
             size = 110.7f
         ),
-        VKApplication(
+        ApplicationDTO(
             iconUrl = "https://images.weserv.nl/?url=cdn.simpleicons.org%2Fduolingo%2F58CC02&output=png",
             name = "Duolingo",
             description = "Приложение для изучения иностранных языков с короткими интерактивными уроками.",
@@ -83,7 +83,7 @@ object MockData {
             ),
             size = 78.4f
         ),
-        VKApplication(
+        ApplicationDTO(
             iconUrl = "https://images.weserv.nl/?url=cdn.simpleicons.org%2Fmonzo%2F14233C&output=png",
             name = "Monzo",
             description = "Мобильный банк для управления счетами, расходами и повседневными финансами.",
@@ -96,7 +96,7 @@ object MockData {
             ),
             size = 95.6f
         ),
-        VKApplication(
+        ApplicationDTO(
             iconUrl = "https://pngimg.com/uploads/angry_birds/angry_birds_PNG11.png",
             name = "Angry Birds",
             description = "Аркадная игра, в которой нужно запускать птиц из рогатки и разрушать конструкции.",
@@ -109,7 +109,7 @@ object MockData {
             ),
             size = 150.2f
         ),
-        VKApplication(
+        ApplicationDTO(
             iconUrl = "https://images.weserv.nl/?url=cdn.simpleicons.org%2Fgooglecalendar%2F4285F4&output=png",
             name = "Google Calendar",
             description = "Календарь для планирования встреч, событий и повседневных задач.",

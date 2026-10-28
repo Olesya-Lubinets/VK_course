@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.example.vk_course.domain.model.VKApplication
+import com.example.vk_course.domain.model.Application
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -28,8 +28,6 @@ import coil.compose.AsyncImage
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import com.example.vk_course.R
 import com.example.vk_course.domain.model.getCategoryFromResources
 import com.example.vk_course.presentation.ApplicationViewModel
@@ -37,7 +35,7 @@ import com.example.vk_course.presentation.DownloadEvent
 
 @Composable
 fun AppDetailsContent(
-    currentApp: VKApplication,
+    currentApp: Application,
     snackbarHostState: SnackbarHostState,
     viewModel:ApplicationViewModel,
 ) {

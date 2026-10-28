@@ -3,8 +3,8 @@ package com.example.vk_course.presentation
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vk_course.data.repository.ApplicationRepository
-import com.example.vk_course.domain.model.VKApplication
+import com.example.vk_course.domain.repository.ApplicationRepository
+import com.example.vk_course.domain.model.Application
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +30,7 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
     }
 
     val listOfApplications: StateFlow<AppListState> =
-        repository.getAllApplications().map<List<VKApplication>,AppListState> { applications ->
+        repository.getAllApplications().map<List<Application>,AppListState> { applications ->
             AppListState.Success(applications)
         }
             .catch  { emit(AppListState.Error) }
