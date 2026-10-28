@@ -1,23 +1,19 @@
 package com.example.vk_course.domain.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import androidx.annotation.StringRes
 import com.example.vk_course.R
 
-@Entity(tableName = "applications")
-data class VKApplication(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+
+data class Application(
+    val id: Int,
     val iconUrl:String,
     val name: String,
     val description: String,
     val category: Category,
     val developer: String,
-    val ageRating: Int,
+    val ageRating: AgeRating,
     val screenshotUrlList: List<String>?,
     val size: Float,
-
     )
 
 enum class Category {

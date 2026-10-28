@@ -17,11 +17,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.vk_course.R
-import com.example.vk_course.domain.model.VKApplication
+import com.example.vk_course.domain.model.Application
 import com.example.vk_course.domain.model.getCategoryFromResources
 
 @Composable
-fun AppListItem(app: VKApplication, onClick:()->Unit ) {
+fun AppListItem(app: Application, onClick:()->Unit ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

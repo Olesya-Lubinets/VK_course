@@ -15,7 +15,7 @@
     <string name="Screenshots">Скриншоты</string>
     <string name="screenshot">Скриншот %1$s</string>
     <string name="Install">Установить</string>
-    <string name="age">Возраст: %1$s+</string>
+    <string name="age">Возраст: %1$s</string>
     <string name="hey_this_is_toolbar">Кликни на этот ToolBar!</string>
     <string name="hey">Hey!</string>
 </resources>

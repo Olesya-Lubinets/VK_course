@@ -32,5 +32,4 @@ object AppModule {
     fun provideApplicationDao(
         database: AppDatabase
     ): ApplicationDao = database.applicationDao()
-
 }
