@@ -17,7 +17,7 @@ import coil.compose.AsyncImage
 import com.example.vk_course.domain.model.Application
 
 @Composable
-fun AppShowCaseItem(app: Application, onClick: (Int) -> Unit) {
+fun AppShowCaseItem(app: Application, onClick: (String) -> Unit) {
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,

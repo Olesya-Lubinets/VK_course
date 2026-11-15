@@ -6,6 +6,6 @@ sealed interface NavRoutes {
     @Serializable
     data object AppList :NavRoutes
     @Serializable
-    data class AppDetails(val id: Int): NavRoutes
+    data class AppDetails(val id: String): NavRoutes
 
 }

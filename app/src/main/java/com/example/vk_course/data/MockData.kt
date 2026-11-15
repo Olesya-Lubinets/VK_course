@@ -9,7 +9,7 @@ object MockData {
             iconUrl = "https://images.weserv.nl/?url=cdn.simpleicons.org%2Fspotify%2F1DB954&output=png",
             name = "Spotify",
             description = "Музыкальный сервис для прослушивания песен, альбомов и подкастов.",
-            category = Category.MEDIA,
+            category = Category.MUSIC,
             developer = "Spotify AB",
             ageRating = 12,
             screenshotUrlList = listOf(
@@ -61,7 +61,7 @@ object MockData {
             iconUrl = "https://images.weserv.nl/?url=cdn.simpleicons.org%2Fyoutube%2FFFF000&output=png",
             name = "YouTube",
             description = "Видеоплатформа с развлекательным контентом, обучающими роликами и трансляциями.",
-            category = Category.MEDIA,
+            category = Category.PHOTO_VIDEO,
             developer = "Google LLC",
             ageRating = 12,
             screenshotUrlList = listOf(

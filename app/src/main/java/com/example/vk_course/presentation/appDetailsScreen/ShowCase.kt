@@ -17,7 +17,7 @@ import com.example.vk_course.presentation.AppListState
 import com.example.vk_course.presentation.ApplicationViewModel
 
 @Composable
-fun ShowCase(onAppClick: (Int) -> Unit) {
+fun ShowCase(onAppClick: (String) -> Unit) {
     val viewModel: ApplicationViewModel = hiltViewModel()
     val state by viewModel.listOfApplications.collectAsStateWithLifecycle()
     when (state) {

@@ -5,6 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ApplicationRepository {
     fun getAllApplications(): Flow<List<Application>>
-    suspend fun getVKApplicationByID(id:Int): Application?
-    suspend fun initializeDatabase()
+    suspend fun getVKApplicationByID(id:String): Application?
 }

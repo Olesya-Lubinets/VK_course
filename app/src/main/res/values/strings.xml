@@ -18,4 +18,18 @@
     <string name="age">Возраст: %1$s</string>
     <string name="hey_this_is_toolbar">Кликни на этот ToolBar!</string>
     <string name="hey">Hey!</string>
+    <string name="category_health_fitness">Здоровье и фитнес</string>
+    <string name="category_photo_video">Фото и видео</string>
+    <string name="category_food_drinks">Еда и напитки</string>
+    <string name="category_education">Образование</string>
+    <string name="category_shopping">Шопинг</string>
+    <string name="category_news">Новости</string>
+    <string name="category_music">Музыка</string>
+    <string name="category_utilities">Утилиты</string>
+    <string name="category_navigation">Навигация</string>
+    <string name="category_business">Бизнес</string>
+    <string name="category_weather">Погода</string>
+    <string name="category_entertainment">Развлечения</string>
+    <string name="category_books_reference">Книги и справочники</string>
+    <string name="category_other">Другое</string>
 </resources>

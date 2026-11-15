@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun AppListScreen(
     modifier: Modifier = Modifier,
-    onAppClick: (Int) -> Unit
+    onAppClick: (String) -> Unit
 ) {
     val viewModel: ApplicationViewModel = hiltViewModel()
     val state by viewModel.listOfApplications.collectAsStateWithLifecycle()

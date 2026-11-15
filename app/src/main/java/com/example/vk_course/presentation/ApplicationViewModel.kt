@@ -23,11 +23,7 @@ import javax.inject.Inject
 class ApplicationViewModel @Inject constructor(private val repository: ApplicationRepository) :
     ViewModel() {
 
-    init {
-        viewModelScope.launch {
-            repository.initializeDatabase()
-        }
-    }
+
 
     val listOfApplications: StateFlow<AppListState> =
         repository.getAllApplications().map<List<Application>,AppListState> { applications ->
@@ -45,7 +41,7 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
     val appByID = _appByID.asStateFlow()
 
 
-    fun getById(id: Int) {
+    fun getById(id: String) {
         viewModelScope.launch {
             try {
                 val app = repository.getVKApplicationByID(id)
@@ -63,7 +59,7 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
     private val _downloadEvent = Channel<DownloadEvent>(Channel.BUFFERED)
     val downloadEvent = _downloadEvent.receiveAsFlow()
 
-    fun downloadApp(id:Int) {
+    fun downloadApp(id:String) {
         viewModelScope.launch {
             _downloadEvent.send(DownloadEvent.Success("Успешная загрузка id:${id}"))
             Log.d("ApplicationViewModel","event send")

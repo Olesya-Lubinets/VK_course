@@ -23,14 +23,16 @@ import com.example.vk_course.presentation.appListScreen.MyToolBar
 import kotlinx.coroutines.launch
 
 @Composable
-fun AppDetailsScreen(id: Int, onAppClick: (Int) -> Unit) {
+fun AppDetailsScreen(id: String, onAppClick: (String) -> Unit) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
     val viewModel: ApplicationViewModel = hiltViewModel()
+
     LaunchedEffect(id) {
         viewModel.getById(id)
     }
+
     val appState by viewModel.appByID.collectAsStateWithLifecycle()
     Scaffold(
         modifier = Modifier,

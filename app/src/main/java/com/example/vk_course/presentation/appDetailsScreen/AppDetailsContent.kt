@@ -82,11 +82,11 @@ fun AppDetailsContent(
                         style = MaterialTheme.typography.headlineSmall
                     )
 
-                    Text(
-                        text = currentApp.developer,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.primary
-                    )
+                   // Text(
+                     //   text = currentApp.developer,
+                    //    style = MaterialTheme.typography.bodyMedium,
+                    //    color = MaterialTheme.colorScheme.primary
+                   // )
 
                     Text(
                         text = stringResource(currentApp.category.getCategoryFromResources()),
@@ -94,11 +94,11 @@ fun AppDetailsContent(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
 
-                    Text(
-                        text = stringResource(R.string.age, currentApp.ageRating),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    //Text(
+                        //text = stringResource(R.string.age, currentApp.ageRating),
+                        //style = MaterialTheme.typography.labelMedium,
+                       // color = MaterialTheme.colorScheme.onSurfaceVariant
+                    //)
                 }
             }
 
