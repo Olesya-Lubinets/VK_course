@@ -8,7 +8,7 @@ import com.example.vk_course.domain.model.Category
 data class ApplicationDTO(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val iconUrl:String,
+    val iconUrl: String,
     val name: String,
     val description: String,
     val category: Category,

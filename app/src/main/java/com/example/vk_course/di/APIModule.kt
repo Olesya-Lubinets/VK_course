@@ -1,6 +1,6 @@
 package com.example.vk_course.di
 
-import com.example.vk_course.data.AppsApi.AppsAPIService
+import com.example.vk_course.data.remote.AppsAPIService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +28,7 @@ object APIModule {
 
     @Provides
     @Singleton
-    fun providesChatRetrofit( chatOkHttpClient: OkHttpClient): Retrofit {
+    fun providesAppsRetrofit(chatOkHttpClient: OkHttpClient): Retrofit {
         val BASE_URL = "http://185.103.109.134/"
 
         return Retrofit.Builder()
@@ -40,7 +40,7 @@ object APIModule {
 
     @Provides
     @Singleton
-    fun providesChatAPIService(retrofit: Retrofit): AppsAPIService {
+    fun providesAppsAPIService(retrofit: Retrofit): AppsAPIService {
         return retrofit.create(AppsAPIService::class.java)
     }
 }

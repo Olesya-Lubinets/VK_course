@@ -33,7 +33,7 @@ fun ShowCase(onAppClick: (String) -> Unit) {
                         text = stringResource(R.string.show_case),
                         style = MaterialTheme.typography.titleMedium
                     )
-                        AppsPager(appList, onAppClick)
+                    AppsPager(appList, onAppClick)
                 }
             }
         }

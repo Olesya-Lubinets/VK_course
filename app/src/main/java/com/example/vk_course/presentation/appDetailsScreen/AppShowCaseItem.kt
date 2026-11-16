@@ -25,7 +25,7 @@ fun AppShowCaseItem(app: Application, onClick: (String) -> Unit) {
             .padding(8.dp)
             .clickable {
                 onClick(app.id)
-                Log.d("AppShowCaseItem","Navigate with ID: ${app.id}")
+                Log.d("AppShowCaseItem", "Navigate with ID: ${app.id}")
             }
     ) {
         AsyncImage(

@@ -6,10 +6,10 @@ import androidx.room.TypeConverters
 
 @TypeConverters(Converters::class)
 @Database(
-    entities = [ApplicationDTO::class ],
-        version = 4
-    )
-    abstract class AppDatabase : RoomDatabase() {
-        abstract fun applicationDao(): ApplicationDao
-    }
+    entities = [ApplicationDTO::class],
+    version = 4
+)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun applicationDao(): ApplicationDao
+}
 

@@ -18,18 +18,16 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
 class ApplicationViewModel @Inject constructor(private val repository: ApplicationRepository) :
     ViewModel() {
 
 
-
     val listOfApplications: StateFlow<AppListState> =
-        repository.getAllApplications().map<List<Application>,AppListState> { applications ->
+        repository.getAllApplications().map<List<Application>, AppListState> { applications ->
             AppListState.Success(applications)
         }
-            .catch  { emit(AppListState.Error) }
+            .catch { emit(AppListState.Error) }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
@@ -48,8 +46,7 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
                 if (app != null) {
                     _appByID.value = AppDetailsState.Success(app)
 
-                }
-                else  _appByID.value =  AppDetailsState.Error
+                } else _appByID.value = AppDetailsState.Error
             } catch (e: Exception) {
                 _appByID.value = AppDetailsState.Error
             }
@@ -59,10 +56,10 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
     private val _downloadEvent = Channel<DownloadEvent>(Channel.BUFFERED)
     val downloadEvent = _downloadEvent.receiveAsFlow()
 
-    fun downloadApp(id:String) {
+    fun downloadApp(id: String) {
         viewModelScope.launch {
             _downloadEvent.send(DownloadEvent.Success("Успешная загрузка id:${id}"))
-            Log.d("ApplicationViewModel","event send")
+            Log.d("ApplicationViewModel", "event send")
         }
     }
 }
