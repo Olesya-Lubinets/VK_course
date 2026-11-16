@@ -21,6 +21,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -28,6 +29,7 @@ import coil.compose.AsyncImage
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.vk_course.R
 import com.example.vk_course.domain.model.getCategoryFromResources
 import com.example.vk_course.presentation.ApplicationViewModel
@@ -39,6 +41,7 @@ fun AppDetailsContent(
     snackbarHostState: SnackbarHostState,
     viewModel: ApplicationViewModel,
 ) {
+    val installStatus by viewModel.installStatus.collectAsStateWithLifecycle()
 
     LaunchedEffect(viewModel) {
         viewModel.downloadEvent.collect { event ->
@@ -57,7 +60,6 @@ fun AppDetailsContent(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
@@ -138,9 +140,14 @@ fun AppDetailsContent(
                 }
             }
         }
+        val buttonText = when (installStatus) {
+            is InstallState.NotInstalled -> "Установить"
+            is InstallState.Installed -> "Удалить"
+            is InstallState.Installing -> "Отменить"
+        }
         Button(
             onClick = {
-                viewModel.downloadApp(currentApp.id)
+                viewModel.downloadApp(currentApp)
             },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier
@@ -151,7 +158,7 @@ fun AppDetailsContent(
                 )
         ) {
             Text(
-                text = stringResource(R.string.Install),
+                text = buttonText,
                 style = MaterialTheme.typography.titleMedium
             )
         }

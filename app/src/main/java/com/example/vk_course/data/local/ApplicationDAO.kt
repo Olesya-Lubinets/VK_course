@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import androidx.room.Dao
+import retrofit2.http.DELETE
 
 @Dao
 interface ApplicationDao {
@@ -20,4 +21,7 @@ interface ApplicationDao {
 
     @Query("SELECT COUNT(*) FROM applications")
     suspend fun getApplicationsCount(): Int
+
+    @Query("DELETE FROM applications WHERE id = :appId")
+    suspend fun deleteAppById(appId: String)
 }
