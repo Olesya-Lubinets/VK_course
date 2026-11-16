@@ -19,7 +19,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.vk_course.R
 import com.example.vk_course.presentation.ApplicationViewModel
 import com.example.vk_course.presentation.AppDetailsState
-import com.example.vk_course.presentation.appListScreen.MyToolBar
+import com.example.vk_course.presentation.MyToolBar
 import kotlinx.coroutines.launch
 
 @Composable
@@ -59,7 +59,7 @@ fun AppDetailsScreen(id: String, onAppClick: (String) -> Unit) {
 
                 is AppDetailsState.Success -> {
                     val currentApp = (appState as AppDetailsState.Success).application
-                    AppDetailsContent(currentApp,snackbarHostState,viewModel)
+                    AppDetailsContent(currentApp, snackbarHostState, viewModel)
                 }
             }
             ShowCase(onAppClick)

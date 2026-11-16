@@ -16,8 +16,8 @@ interface ApplicationDao {
     fun getAll(): Flow<List<ApplicationDTO>>
 
     @Query("SELECT * FROM applications WHERE id = :id")
-    suspend fun getByID(id:String): ApplicationDTO?
+    suspend fun getByID(id: String): ApplicationDTO?
 
     @Query("SELECT COUNT(*) FROM applications")
-    suspend fun getApplicationsCount():Int
+    suspend fun getApplicationsCount(): Int
 }
