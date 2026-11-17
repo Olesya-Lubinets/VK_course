@@ -19,7 +19,7 @@ import com.example.vk_course.domain.model.Application
 @Composable
 fun AppShowCaseItem(app: Application, onClick: (String) -> Unit) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(8.dp)
@@ -30,7 +30,7 @@ fun AppShowCaseItem(app: Application, onClick: (String) -> Unit) {
     ) {
         AsyncImage(
             model = app.iconUrl,
-            modifier = Modifier.size(50.dp),
+            modifier = Modifier.size(70.dp),
             contentScale = ContentScale.Crop,
             contentDescription = app.name,
         )

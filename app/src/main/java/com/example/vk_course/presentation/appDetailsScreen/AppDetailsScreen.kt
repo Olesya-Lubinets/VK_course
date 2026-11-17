@@ -2,6 +2,8 @@ package com.example.vk_course.presentation.appDetailsScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -34,6 +36,7 @@ fun AppDetailsScreen(id: String, onAppClick: (String) -> Unit) {
     }
 
     val appState by viewModel.appByID.collectAsStateWithLifecycle()
+
     Scaffold(
         modifier = Modifier,
         topBar = {
@@ -47,7 +50,9 @@ fun AppDetailsScreen(id: String, onAppClick: (String) -> Unit) {
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)) {
+        Column(modifier = Modifier
+            .padding(innerPadding)
+            .verticalScroll(rememberScrollState())) {
             when (appState) {
                 is AppDetailsState.Loading -> {
                     CircularProgressIndicator()
@@ -57,9 +62,12 @@ fun AppDetailsScreen(id: String, onAppClick: (String) -> Unit) {
                     Text(stringResource(R.string.wrong_id))
                 }
 
-                is AppDetailsState.Success -> {
-                    val currentApp = (appState as AppDetailsState.Success).application
-                    AppDetailsContent(currentApp, snackbarHostState, viewModel)
+                is AppDetailsState.Content -> {
+                    AppDetailsContent(
+                        appState as AppDetailsState.Content,
+                        snackbarHostState,
+                        viewModel
+                    )
                 }
             }
             ShowCase(onAppClick)

@@ -20,4 +20,7 @@ interface ApplicationDao {
 
     @Query("SELECT COUNT(*) FROM applications")
     suspend fun getApplicationsCount(): Int
+
+    @Query("DELETE FROM applications WHERE id = :appId")
+    suspend fun deleteAppById(appId: String)
 }

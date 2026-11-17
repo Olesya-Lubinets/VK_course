@@ -10,13 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.example.vk_course.domain.model.Application
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
@@ -30,12 +27,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.example.vk_course.R
 import com.example.vk_course.domain.model.getCategoryFromResources
+import com.example.vk_course.presentation.AppDetailsState
 import com.example.vk_course.presentation.ApplicationViewModel
 import com.example.vk_course.presentation.DownloadEvent
 
 @Composable
 fun AppDetailsContent(
-    currentApp: Application,
+    currentAppState: AppDetailsState.Content,
     snackbarHostState: SnackbarHostState,
     viewModel: ApplicationViewModel,
 ) {
@@ -54,10 +52,12 @@ fun AppDetailsContent(
             }
         }
     }
+    val currentApp = currentAppState.application
+    val installStatus = currentAppState.installState
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
@@ -138,9 +138,15 @@ fun AppDetailsContent(
                 }
             }
         }
+        val buttonText = when (installStatus) {
+            is InstallState.NotInstalled -> "Установить"
+            is InstallState.Installed -> "Установлено"
+            is InstallState.Installing -> "Отменить"
+        }
+
         Button(
             onClick = {
-                viewModel.downloadApp(currentApp.id)
+                viewModel.onInstallClick(currentApp)
             },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier
@@ -148,10 +154,11 @@ fun AppDetailsContent(
                 .padding(horizontal = 24.dp)
                 .clip(
                     RoundedCornerShape(12.dp)
-                )
+                ),
+            enabled = installStatus !is InstallState.Installed
         ) {
             Text(
-                text = stringResource(R.string.Install),
+                text = buttonText,
                 style = MaterialTheme.typography.titleMedium
             )
         }
