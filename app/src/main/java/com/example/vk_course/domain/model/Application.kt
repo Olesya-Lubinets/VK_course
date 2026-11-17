@@ -10,4 +10,5 @@ data class Application(
     val ageRating: AgeRating?,
     val screenshotUrlList: List<String>?,
     val size: Float?,
+    val rating: Float?
 )

@@ -1,6 +1,7 @@
 package com.example.vk_course.presentation
 
 import android.database.sqlite.SQLiteException
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vk_course.domain.repository.ApplicationRepository
@@ -16,12 +17,15 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.system.measureTimeMillis
 
 @HiltViewModel
 class ApplicationViewModel @Inject constructor(private val repository: ApplicationRepository) :
@@ -29,8 +33,12 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
 
 
     val listOfApplications: StateFlow<AppListState> =
-        repository.getAllApplications().map<List<Application>, AppListState> { applications ->
-            AppListState.Success(applications)
+        repository.getAllApplications().mapLatest<List<Application>,AppListState> { applications ->
+            val idList = applications.map { it.id }
+            val ratingMap = repository.loadRatingsInParallel(idList).toMap()
+            val applicationsWithRating =
+                applications.map { app -> app.copy(rating = ratingMap[app.id])}
+            AppListState.Success(applicationsWithRating)
         }
             .catch { emit(AppListState.Error) }
             .stateIn(
@@ -38,6 +46,26 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = AppListState.Loading
             )
+
+    // Task init for time measurement
+    /*
+    init {
+        viewModelScope.launch {
+            val appListStatus = listOfApplications.first { it is AppListState.Success }
+            if (appListStatus is AppListState.Success) {
+                val idList = appListStatus.applicationList.map { it.id }
+
+                val timeSeq = measureTimeMillis {
+                    repository.loadRatingsSequentially(idList)
+                }
+                val timePar = measureTimeMillis {
+                    repository.loadRatingsInParallel(idList)
+                }
+                Log.d("ApplicationViewModel", timeSeq.toString())
+                Log.d("ApplicationViewModel", timePar.toString())
+            }
+        }
+    }*/
 
 
     private val _appByID = MutableStateFlow<AppDetailsState>(AppDetailsState.Loading)

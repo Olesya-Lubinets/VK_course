@@ -18,7 +18,8 @@ object ApplicationMapper {
             developer = dto.developer,
             ageRating = if (dto.ageRating >= 12) AgeRating.ADULTS else AgeRating.CHILDREN,
             screenshotUrlList = dto.screenshotUrlList,
-            size = dto.size
+            size = dto.size,
+            rating = null
         )
     }
 
@@ -32,7 +33,8 @@ object ApplicationMapper {
             developer = null,
             ageRating = null,
             screenshotUrlList = null,
-            size = null
+            size = null,
+            rating = null
         )
     }
 

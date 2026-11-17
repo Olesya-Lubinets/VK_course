@@ -6,6 +6,10 @@ import com.example.vk_course.data.local.ApplicationDTO
 import com.example.vk_course.data.local.ApplicationDao
 import com.example.vk_course.domain.repository.ApplicationRepository
 import com.example.vk_course.domain.model.Application
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -35,5 +39,19 @@ class ApplicationRepositoryImpl @Inject constructor(
     override suspend fun deleteApplicationFromDB(application: Application) {
         dbDao.deleteAppById(application.id)
     }
+
+    override suspend fun getRating(id: String): Float {
+        delay(1500)
+        return (30..50).random() / 10f
+    }
+
+    override suspend fun loadRatingsSequentially(ids:List<String>): List<Pair<String, Float>> {
+       return  ids.map { id -> id to getRating(id) }
+    }
+
+    override suspend fun loadRatingsInParallel(ids: List<String>) =
+        coroutineScope {
+            ids.map { id -> async { id to getRating(id) } }.awaitAll()
+        }
 }
 
