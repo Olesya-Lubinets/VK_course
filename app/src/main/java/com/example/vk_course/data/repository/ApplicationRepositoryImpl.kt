@@ -32,10 +32,8 @@ class ApplicationRepositoryImpl @Inject constructor(
         dbDao.insert(ApplicationMapper.toDB(application))
     }
 
-    override suspend fun deleteApplicationFromDB(application: ApplicationDTO) {
+    override suspend fun deleteApplicationFromDB(application: Application) {
         dbDao.deleteAppById(application.id)
     }
-
-
 }
 

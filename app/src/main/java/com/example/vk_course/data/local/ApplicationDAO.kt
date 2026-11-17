@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import androidx.room.Dao
-import retrofit2.http.DELETE
 
 @Dao
 interface ApplicationDao {

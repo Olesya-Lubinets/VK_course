@@ -50,7 +50,9 @@ fun AppDetailsScreen(id: String, onAppClick: (String) -> Unit) {
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding).verticalScroll(rememberScrollState())) {
+        Column(modifier = Modifier
+            .padding(innerPadding)
+            .verticalScroll(rememberScrollState())) {
             when (appState) {
                 is AppDetailsState.Loading -> {
                     CircularProgressIndicator()
@@ -60,9 +62,12 @@ fun AppDetailsScreen(id: String, onAppClick: (String) -> Unit) {
                     Text(stringResource(R.string.wrong_id))
                 }
 
-                is AppDetailsState.Success -> {
-                    val currentApp = (appState as AppDetailsState.Success).application
-                    AppDetailsContent(currentApp, snackbarHostState, viewModel)
+                is AppDetailsState.Content -> {
+                    AppDetailsContent(
+                        appState as AppDetailsState.Content,
+                        snackbarHostState,
+                        viewModel
+                    )
                 }
             }
             ShowCase(onAppClick)

@@ -1,10 +1,8 @@
 package com.example.vk_course.presentation
 
 import android.database.sqlite.SQLiteException
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.vk_course.data.ApplicationMapper
 import com.example.vk_course.domain.repository.ApplicationRepository
 import com.example.vk_course.domain.model.Application
 import com.example.vk_course.presentation.appDetailsScreen.InstallState
@@ -51,9 +49,11 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
             try {
                 val app = repository.getVKApplicationByID(id)
                 if (app != null) {
-                    _appByID.value = AppDetailsState.Success(app)
+                    _appByID.value = AppDetailsState.Content(app, InstallState.NotInstalled)
 
                 } else _appByID.value = AppDetailsState.Error
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 _appByID.value = AppDetailsState.Error
             }
@@ -63,31 +63,39 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
     private val _downloadEvent = Channel<DownloadEvent>(Channel.BUFFERED)
     val downloadEvent = _downloadEvent.receiveAsFlow()
 
-    private val _installStatus = MutableStateFlow<InstallState>(InstallState.NotInstalled)
-    val installStatus = _installStatus.asStateFlow()
-
 
     private suspend fun emulateInstall(application: Application) {
+        if (_appByID.value !is AppDetailsState.Content) return
         try {
-            for (i in 0..100 step 5) {
+            for (progress in 0..100 step 5) {
                 delay(150)
-                _installStatus.update { InstallState.Installing(i) }
+                updateInstallState(InstallState.Installing(progress))
             }
             repository.addApplicationToDB(application = application)
-            _installStatus.value = InstallState.Installed
+            updateInstallState(InstallState.Installed)
             _downloadEvent.send(DownloadEvent.Success("Успешная загрузка"))
         } catch (e: SQLiteException) {
-            _installStatus.value = InstallState.NotInstalled
+            updateInstallState(InstallState.NotInstalled)
             _downloadEvent.send(DownloadEvent.Error("Неуспешная загрузка"))
         } catch (e: CancellationException) {
-            _installStatus.value = InstallState.NotInstalled
+            updateInstallState(InstallState.NotInstalled)
             throw e
+        }
+    }
+
+    private fun updateInstallState(installState: InstallState) {
+        _appByID.update { appDetailsState ->
+            if (appDetailsState is AppDetailsState.Content) {
+                appDetailsState.copy(installState = installState)
+            } else {
+                appDetailsState
+            }
         }
     }
 
     private var installJob: Job? = null
 
-    fun downloadApp(app: Application) {
+    fun onInstallClick(app: Application) {
         if (installJob?.isActive == true) {
             installJob?.cancel()
         } else {
