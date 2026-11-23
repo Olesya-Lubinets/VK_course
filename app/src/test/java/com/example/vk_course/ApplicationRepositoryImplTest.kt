@@ -2,13 +2,14 @@ package com.example.vk_course
 
 import com.example.vk_course.data.ApplicationMapper
 import com.example.vk_course.data.local.ApplicationDao
+import com.example.vk_course.data.remote.ApplicationApiDTO
+import com.example.vk_course.data.remote.ApplicationApiListItemDTO
 import com.example.vk_course.data.remote.AppsAPIService
 import com.example.vk_course.data.repository.ApplicationRepositoryImpl
 import com.example.vk_course.domain.model.Application
 import com.example.vk_course.domain.repository.ApplicationRepository
 import io.mockk.*
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.time.delay
 import org.junit.Before
 import org.junit.Test
 import org.junit.Assert.*
@@ -19,9 +20,9 @@ import kotlinx.coroutines.flow.first
 
 class ApplicationRepositoryImplTest {
 
-    lateinit var dao: ApplicationDao
-    lateinit var api: AppsAPIService
-    lateinit var repository: ApplicationRepository
+    private lateinit var dao: ApplicationDao
+    private lateinit var api: AppsAPIService
+    private lateinit var repository: ApplicationRepository
 
     @Before
     fun setup() {
@@ -31,7 +32,7 @@ class ApplicationRepositoryImplTest {
     }
 
     @Test
-    fun `getAllApplications return correct Flow of List of Application`() = runTest{
+    fun `getAllApplications return correct List of Application`() = runTest{
         coEvery { api.getAllApps() } returns MockData.testAppListFromAPI
         val expected =  MockData.testAppListFromAPI.map { ApplicationMapper.toDomain(it) }
 
@@ -40,13 +41,36 @@ class ApplicationRepositoryImplTest {
     }
 
     @Test
+    fun `getAllApplications calls api getAll ones`() = runTest {
+        coEvery { api.getAllApps() } returns emptyList<ApplicationApiListItemDTO>()
+        repository.getAllApplications().first()
+        coVerify(exactly = 1) { api.getAllApps() }
+    }
+
+    @Test
+    fun `getAllApplications returns empty list when Api returns empty list`() = runTest {
+        coEvery { api.getAllApps() } returns emptyList()
+        val expected = emptyList<ApplicationApiDTO>()
+        val result = repository.getAllApplications().first()
+        assertEquals(expected,result)
+    }
+
+    @Test
     fun `getVKApplicationByID returns correct Application with Id`() = runTest {
         val id = "fa2e31b8-1234-4cf7-9914-108a170a1b01"
-        coEvery { api.getApplication(id) } returns MockData.testAppItemFromAPI
-        val response = repository.getVKApplicationByID(id)
-        val expected = ApplicationMapper.toDomain(MockData.testAppItemFromAPI)
-        assertEquals(expected,response)
+        val appMockItem = MockData.testAppItemFromAPI
+        coEvery { api.getApplication(id) } returns appMockItem
+        val result = repository.getVKApplicationByID(id)
+        val expected = ApplicationMapper.toDomain(appMockItem)
+        assertEquals(expected,result)
     }
+
+    @Test
+    fun `getVKApplicationByID returns null if Api returns null`() = runTest {
+        coEvery { api.getApplication(any())} returns null
+        assertNull(repository.getVKApplicationByID(""))
+    }
+
 
     @Test
     fun `addApplicationToDB() calls  dbDao insert with correct argument`() = runTest {
@@ -68,8 +92,7 @@ class ApplicationRepositoryImplTest {
 
     @Test
     fun getRating() = runTest {
-        val spyRepository = spyk(repository)
-        val result = spyRepository.getRating("fa2e31b8-1234-4cf7-9914-108a170a1b01")
+        val result = repository.getRating("fa2e31b8-1234-4cf7-9914-108a170a1b01")
         assertTrue( (result in  3.0f..5.0f ))
     }
 
@@ -127,5 +150,18 @@ class ApplicationRepositoryImplTest {
         }
         spyRepository.loadRatingsInParallel(MockData.testAppListFromAPI.map { it.id })
         assertTrue(maxCallsInSameTime>1)
+    }
+
+    @Test
+    fun `loadRatingsInParallel calls getRating list size times`() = runTest {
+        val spyRepository = spyk(repository)
+        var calls = 0
+        coEvery { spyRepository.getRating(any()) } coAnswers {
+            calls += 1
+            3.5f
+        }
+        val appsList = MockData.testAppListFromAPI
+        spyRepository.loadRatingsInParallel(appsList.map { it.id })
+        assertEquals(appsList.size,calls)
     }
 }
