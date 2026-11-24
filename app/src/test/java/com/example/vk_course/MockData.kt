@@ -5,7 +5,6 @@ import com.example.vk_course.data.remote.ApplicationApiListItemDTO
 import com.example.vk_course.domain.model.AgeRating
 import com.example.vk_course.domain.model.Application
 import com.example.vk_course.domain.model.Category
-import com.example.vk_course.domain.model.toCategory
 
 object MockData {
     val testAppListFromAPI =  listOf(
@@ -59,7 +58,7 @@ object MockData {
             category = "Здоровье и фитнес"
         ))
 
-  val testAppItemFromAPI =  ApplicationApiDTO(
+  val testAppItemFromAPIChildren =  ApplicationApiDTO(
         id = "fa2e31b8-1234-4cf7-9914-108a170a1b01",
         iconUrl = "https://fastly.picsum.photos/id/237/200/200.jpg?hmac=zHUGikXUDyLCCmvyww1izLK3R3k8oRYBRiTizZEdyfI",
         name = "QuickNote",
@@ -70,10 +69,22 @@ object MockData {
         size = 8.2f,
         screenshotUrlList = listOf(
             "https://fastly.picsum.photos/id/2/200/200.jpg?hmac=isSWZUpv7D1D156XcADPOCZlfCG9mmvb8OlXFdvLdK0",
-            "https://fastly.picsum.photos/id/3/200/200.jpg?hmac=N5yYUNYl5gOUcaMmTtnNNtx839TN2qaNM4SaXhQl65U",
-            "https://fastly.picsum.photos/id/4/200/200.jpg?hmac=ozRrjh7SMobdmKcOU0f5sWYszFW9Or1c90qeq7uqtuw",
-            "https://fastly.picsum.photos/id/5/200/200.jpg?hmac=oN9VtXdJYLSFssji8vCr48JaI-e5Zi4eH9GAiYBB_Ig",
-            "https://fastly.picsum.photos/id/6/200/200.jpg?hmac=g4Q9Vcu5Ohm8Rwap3b6HSIxUfIALZ6BasESHhw7VjLE"
+            "https://fastly.picsum.photos/id/3/200/200.jpg?hmac=N5yYUNYl5gOUcaMmTtnNNtx839TN2qaNM4SaXhQl65U"
+        )
+    )
+
+    val testAppItemFromAPIAdults =  ApplicationApiDTO(
+        id = "fa2e31b8-1234-4cf7-9914-108a170a1b01",
+        iconUrl = "https://fastly.picsum.photos/id/237/200/200.jpg?hmac=zHUGikXUDyLCCmvyww1izLK3R3k8oRYBRiTizZEdyfI",
+        name = "QuickNote",
+        description = "QuickNote — практичное приложение для хранения, организации и быстрой фиксации идей. Можно создавать цветные блокноты и добавлять напоминания на даты. Благодаря поддержке синхронизации заметки доступны на всех устройствах. Быстрый поиск, простая организация по категориям, защита паролем, экспорт в облако и дружественный интерфейс делают решение незаменимым помощником для любого пользователя. Даже длинные списки дел легко разобрать по тегам и статусу.",
+        category = "Производительность",
+        developer = "QuickSoft Inc.",
+        ageRating = 18,
+        size = 8.2f,
+        screenshotUrlList = listOf(
+            "https://fastly.picsum.photos/id/2/200/200.jpg?hmac=isSWZUpv7D1D156XcADPOCZlfCG9mmvb8OlXFdvLdK0",
+            "https://fastly.picsum.photos/id/3/200/200.jpg?hmac=N5yYUNYl5gOUcaMmTtnNNtx839TN2qaNM4SaXhQl65U"
         )
     )
 
@@ -89,10 +100,7 @@ object MockData {
         rating = 4.5f,
         screenshotUrlList = listOf(
             "https://fastly.picsum.photos/id/2/200/200.jpg?hmac=isSWZUpv7D1D156XcADPOCZlfCG9mmvb8OlXFdvLdK0",
-            "https://fastly.picsum.photos/id/3/200/200.jpg?hmac=N5yYUNYl5gOUcaMmTtnNNtx839TN2qaNM4SaXhQl65U",
-            "https://fastly.picsum.photos/id/4/200/200.jpg?hmac=ozRrjh7SMobdmKcOU0f5sWYszFW9Or1c90qeq7uqtuw",
-            "https://fastly.picsum.photos/id/5/200/200.jpg?hmac=oN9VtXdJYLSFssji8vCr48JaI-e5Zi4eH9GAiYBB_Ig",
-            "https://fastly.picsum.photos/id/6/200/200.jpg?hmac=g4Q9Vcu5Ohm8Rwap3b6HSIxUfIALZ6BasESHhw7VjLE"
+            "https://fastly.picsum.photos/id/3/200/200.jpg?hmac=N5yYUNYl5gOUcaMmTtnNNtx839TN2qaNM4SaXhQl65U"
         )
     )
 }

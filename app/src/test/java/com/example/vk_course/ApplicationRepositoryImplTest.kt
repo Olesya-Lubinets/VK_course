@@ -58,7 +58,7 @@ class ApplicationRepositoryImplTest {
     @Test
     fun `getVKApplicationByID returns correct Application with Id`() = runTest {
         val id = "fa2e31b8-1234-4cf7-9914-108a170a1b01"
-        val appMockItem = MockData.testAppItemFromAPI
+        val appMockItem = MockData.testAppItemFromAPIChildren
         coEvery { api.getApplication(id) } returns appMockItem
         val result = repository.getVKApplicationByID(id)
         val expected = ApplicationMapper.toDomain(appMockItem)
