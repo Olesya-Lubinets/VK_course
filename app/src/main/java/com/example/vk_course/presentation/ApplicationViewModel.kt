@@ -47,30 +47,8 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
                 initialValue = AppListState.Loading
             )
 
-    // Task init for time measurement
-    /*
-    init {
-        viewModelScope.launch {
-            val appListStatus = listOfApplications.first { it is AppListState.Success }
-            if (appListStatus is AppListState.Success) {
-                val idList = appListStatus.applicationList.map { it.id }
-
-                val timeSeq = measureTimeMillis {
-                    repository.loadRatingsSequentially(idList)
-                }
-                val timePar = measureTimeMillis {
-                    repository.loadRatingsInParallel(idList)
-                }
-                Log.d("ApplicationViewModel", timeSeq.toString())
-                Log.d("ApplicationViewModel", timePar.toString())
-            }
-        }
-    }*/
-
-
     private val _appByID = MutableStateFlow<AppDetailsState>(AppDetailsState.Loading)
     val appByID = _appByID.asStateFlow()
-
 
     fun getById(id: String) {
         viewModelScope.launch {
@@ -90,7 +68,6 @@ class ApplicationViewModel @Inject constructor(private val repository: Applicati
 
     private val _downloadEvent = Channel<DownloadEvent>(Channel.BUFFERED)
     val downloadEvent = _downloadEvent.receiveAsFlow()
-
 
     private suspend fun emulateInstall(application: Application) {
         if (_appByID.value !is AppDetailsState.Content) return
